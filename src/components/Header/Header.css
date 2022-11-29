@@ -29,7 +29,7 @@
 }
 
 .header__signup:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .header__signin {
@@ -45,7 +45,7 @@
 }
 
 .header__signin:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {
