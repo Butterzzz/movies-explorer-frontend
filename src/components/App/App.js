@@ -5,6 +5,7 @@ import Header from '../Header/Header'
 import Main from '../Main/Main'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
+import PageNotFound from '../PageNotFound/PageNotFound'
 import Footer from '../Footer/Footer'
 
 const App = () => {
@@ -40,7 +41,7 @@ const App = () => {
         </Route>
 
         <Route path="*">
-          PageNotFound will be here
+          <PageNotFound />
         </Route>
 
       </Switch>
