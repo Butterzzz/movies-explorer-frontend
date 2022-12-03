@@ -8,13 +8,13 @@ import Portfolio from '../Portfolio/Portfolio'
 
 const Main = () => {
   return (
-    <div className="content">
+    <main className="content">
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
       <Portfolio />
-    </div>
+    </main>
   )
 }
 
