@@ -1,9 +1,19 @@
 import React from 'react'
+import MoviesCard from '../MoviesCard/MoviesCard'
 import './MoviesCardList.css'
 
-const MoviesCardList = () => {
+const MoviesCardList = ({ moviesList }) => {
   return (
-    <div>MoviesCardList</div>
+    <section className="movies" aria-label="Карточки фильмов">
+      <ul className="movies__list">
+        {moviesList.map((movie) => (
+          <MoviesCard
+            key={movie._id}
+            movie={movie}
+          />
+        ))}
+      </ul>
+    </section>
   )
 }
 
