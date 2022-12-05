@@ -60,19 +60,27 @@ const App = () => {
         </Route>
 
         <Route path="/movies">
-          <Header />
-          <Movies movies={movies} />
+          <Header
+            isAuth={true}
+          />
+          <Movies
+            movies={movies} />
           <Footer />
         </Route>
 
         <Route path="/saved-movies">
-          <Header />
-          <Movies movies={movies} />
+          <Header
+            isAuth={true}
+          />
+          <Movies
+            movies={movies} />
           <Footer />
         </Route>
 
         <Route path="/profile">
-          <Header />
+          <Header
+            isAuth={true}
+          />
           <Profile />
         </Route>
 
