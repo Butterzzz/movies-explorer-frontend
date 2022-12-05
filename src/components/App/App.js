@@ -4,6 +4,7 @@ import './App.css'
 import Header from '../Header/Header'
 import Main from '../Main/Main'
 import Movies from '../Movies/Movies'
+import Profile from '../Profile/Profile'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
@@ -65,12 +66,14 @@ const App = () => {
         </Route>
 
         <Route path="/saved-movies">
-          Saved movies will be here
+          <Header />
+          <Movies movies={movies} />
+          <Footer />
         </Route>
 
         <Route path="/profile">
           <Header />
-          Profile will be here
+          <Profile />
         </Route>
 
         <Route path="/signup">
