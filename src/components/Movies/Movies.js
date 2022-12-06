@@ -14,7 +14,7 @@ const Movies = ({ movies }) => {
       />
       }
       <div className="movies__more-button-container">
-        <button className="movies__more-button" type="button">Ещё</button>
+        <button className="movies__more-button button" type="button">Ещё</button>
       </div>
     </main>
   )

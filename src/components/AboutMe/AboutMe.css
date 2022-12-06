@@ -68,12 +68,6 @@
   font-size: 14px;
   line-height: 17px;
   color: #FFF;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.about-me__link:hover {
-  opacity: 0.7;
 }
 
 .about-me__image-container {

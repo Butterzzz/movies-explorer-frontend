@@ -9,7 +9,7 @@ const MoviesCard = ({ movie }) => {
         <div className="card__description">
           <div className="card__wrapper">
             <h2 className="card__title">{movie.nameRU}</h2>
-            <button className="card__button" type="button" aria-label="Cохранить в коллекцию" />
+            <button className="card__button button" type="button" aria-label="Cохранить в коллекцию" />
           </div>
           <p className="card__duration">{movie.duration}</p>
         </div>

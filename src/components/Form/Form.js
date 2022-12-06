@@ -13,17 +13,17 @@ const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin
         <h2 className="form__title">{title}</h2>
         {children}
 
-        <button className="form__button" type="submit">{submitText}</button>
+        <button className="form__button button" type="submit">{submitText}</button>
       </form>
 
       {isRegister && (<div className="form__question-container">
         <p className="form__question-text">Уже зарегистрированы?</p>
-        <Link to="/signin" className="form__question-link">Войти</Link>
+        <Link to="/signin" className="form__question-link link">Войти</Link>
       </div>)}
 
       {isLogin && (<div className="form__question-container">
         <p className="form__question-text">Ещё не зарегистрированы?</p>
-        <Link to="/signup" className="form__question-link">Регистрация</Link>
+        <Link to="/signup" className="form__question-link link">Регистрация</Link>
       </div>)}
     </section>
   )

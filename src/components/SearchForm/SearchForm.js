@@ -10,7 +10,7 @@ const SearchForm = () => {
         <form className="search-form">
           <span className="search-form__icon"></span>
           <input className="search-form__input" type="text" placeholder="Фильм" minLength="2" required />
-          <button className="search-form__button" type="submit" aria-label="Поиск"></button>
+          <button className="search-form__button button" type="submit" aria-label="Поиск"></button>
         </form>
 
         <RoundedSwitch />

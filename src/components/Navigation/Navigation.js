@@ -4,17 +4,20 @@ import './Navigation.css'
 
 const Navigation = () => {
   return (
-    <nav className="menu" >
-      <ul className="menu__list">
-        <li className="menu__list-item">
-          <NavLink to='/movies' className="menu__link" activeClassName="menu__link_active">Фильмы</NavLink>
-        </li>
-        <li className="menu__list-item">
-          <NavLink to='/saved-movies' className="menu__link" activeClassName="menu__link_active">Сохранённые фильмы</NavLink>
-        </li>
-      </ul>
-      <NavLink to="/profile" className="menu__link menu__link_type_profile">Аккаунт</NavLink>
-    </nav >
+    <>
+      <nav className="menu" >
+        <ul className="menu__list">
+          <li className="menu__list-item">
+            <NavLink to='/movies' className="menu__link link" activeClassName="menu__link_active">Фильмы</NavLink>
+          </li>
+          <li className="menu__list-item">
+            <NavLink to='/saved-movies' className="menu__link link" activeClassName="menu__link_active">Сохранённые фильмы</NavLink>
+          </li>
+        </ul>
+        <NavLink to="/profile" className="menu__link menu__link_type_profile link">Аккаунт</NavLink>
+      </nav >
+      <button className="menu__button button" type="button" />
+    </>
   )
 }
 

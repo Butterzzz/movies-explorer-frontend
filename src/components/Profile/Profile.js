@@ -36,8 +36,8 @@ const Profile = ({ name = 'Пользователь', email = 'email' }) => {
 
         <span className="profile__error">При обновлении профиля произошла ошибка.</span>
 
-        <a href="/11" className="profile__button profile__button_type_edit">Редактировать</a>
-        <Link href="/22" className="profile__button profile__button_type_logout">Выйти из аккаунта</Link>
+        <Link to="/11" className="profile__button profile__button_type_edit button">Редактировать</Link>
+        <Link to="/22" className="profile__button profile__button_type_logout button">Выйти из аккаунта</Link>
       </div>
     </section>
   )

@@ -37,11 +37,6 @@
   background-image: url(../../images/heart-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  transition: var(--transition);
 }
 
 .card__button_type_saved {
@@ -54,11 +49,6 @@
   background-image: url(../../images/delete-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.card__button:hover {
-  opacity: 0.8;
-  cursor: pointer;
 }
 
 .card__duration {
