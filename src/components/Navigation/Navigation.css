@@ -1,5 +1,4 @@
 .menu {
-  flex-basis: 676px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,6 +35,7 @@
   border: 2px solid rgba(170, 170, 170, 0.2);
   border-radius: 50px;
   padding: 6px 10px;
+  margin: 0 0 0 364px;
 }
 
 .menu__profile::before {
@@ -59,6 +59,12 @@
   background-image: url(../../images/menu-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 880px) {
+  .menu__profile {
+    margin: 0 0 0 182px;
+  }
 }
 
 @media screen and (max-width: 768px) {
