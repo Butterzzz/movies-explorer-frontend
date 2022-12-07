@@ -5,12 +5,14 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import './SavedMovies.css'
 
 const SavedMovies = ({ movies }) => {
+  const savedMovies = movies?.filter(item => item.isSaved === true);
+
   return (
     <main className="content">
       <SearchForm />
       {/* <Preloader /> */}
-      {movies && <MoviesCardList
-        moviesList={movies}
+      {savedMovies && <MoviesCardList
+        moviesList={savedMovies}
       />
       }
     </main>
