@@ -14,7 +14,7 @@ const Navigation = () => {
             <NavLink to='/saved-movies' className="menu__link link" activeClassName="menu__link_active">Сохранённые фильмы</NavLink>
           </li>
         </ul>
-        <NavLink to="/profile" className="menu__link menu__link_type_profile link">Аккаунт</NavLink>
+        <NavLink to="/profile" className="menu__profile button">Аккаунт</NavLink>
       </nav >
       <button className="menu__button button" type="button" />
     </>
