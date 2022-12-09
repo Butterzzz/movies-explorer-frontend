@@ -8,7 +8,7 @@
   max-height: 151px;
   object-fit: cover;
   object-position: center;
-  margin: 0 0 10px 0;
+  margin: 0 0 14px 0;
 }
 
 .card__wrapper {
@@ -16,11 +16,12 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #424242;
-  padding: 0 0 25px 0;
+  padding: 0 0 13px 0;
 }
 
 .card__title {
   max-width: 226px;
+  height: 32px;
   margin: 0;
   font-size: 13px;
   line-height: 16px;
@@ -28,7 +29,7 @@
   color: #FFF;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .card__button {
@@ -66,14 +67,25 @@
   .card__image {
     max-height: 190px;
   }
+
+  .card__title {
+    max-width: 295px;
+  }
 }
 
 @media screen and (max-width: 420px) {
   .card__image {
     max-height: 168px;
+    margin: 0 0 15px 0;
+  }
+
+  .card__wrapper {
+    padding: 0 0 14px 0;
   }
 
   .card__title {
+    max-width: 240px;
+    height: 30px;
     font-size: 12px;
     line-height: 15px;
   }
