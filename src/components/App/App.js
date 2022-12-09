@@ -30,7 +30,7 @@ const App = () => {
 
         <Route path="/movies">
           <Header
-            isAuth={true}
+            isLoggedIn={true}
           />
           <Movies
             movies={movies} />
@@ -39,7 +39,7 @@ const App = () => {
 
         <Route path="/saved-movies">
           <Header
-            isAuth={true}
+            isLoggedIn={true}
           />
           <SavedMovies
             movies={movies} />
@@ -48,7 +48,7 @@ const App = () => {
 
         <Route path="/profile">
           <Header
-            isAuth={true}
+            isLoggedIn={true}
           />
           <Profile />
         </Route>
