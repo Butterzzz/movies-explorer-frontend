@@ -45,9 +45,9 @@
 }
 
 .profile-form__field {
-  font-weight: 500;
   font-size: 11px;
   line-height: 13px;
+  font-weight: 500;
   color: #FFF;
 }
 
@@ -63,13 +63,12 @@
 }
 
 .profile__error {
-  font-weight: 400;
   font-size: 11px;
   line-height: 13px;
+  font-weight: 400;
   text-align: center;
   color: #FF004C;
-  margin: auto 0 0;
-  padding: 0 0 20px 0;
+  margin: auto 0 20px 0;
 }
 
 .profile__button {
@@ -80,7 +79,7 @@
 .profile__button_type_edit {
   font-weight: 400;
   color: #FFF;
-  padding: 0 0 16px 0;
+  margin: 0 0 20px 0;
 }
 
 .profile__button_type_logout {

@@ -61,6 +61,15 @@
     /* visibility: hidden; */
 }
 
+.form__error-request {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: #FF004C;
+    margin: auto 0 0;
+}
+
 .form__button {
     height: 45px;
     font-weight: 500;
@@ -70,7 +79,7 @@
     color: #FFF;
     background-color: #4285F4;
     border-radius: 3px;
-    margin: auto 0 0;
+    margin: 20px 0 0 0;
 }
 
 .form__question-container {

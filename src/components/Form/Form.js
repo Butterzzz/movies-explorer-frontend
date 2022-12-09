@@ -13,6 +13,7 @@ const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin
         <h2 className="form__title">{title}</h2>
         {children}
 
+        <span className="form__error-request">Ошибки после отправки запроса</span>
         <button className="form__button button" type="submit">{submitText}</button>
       </form>
 
