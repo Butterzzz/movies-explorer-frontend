@@ -50,8 +50,8 @@
 }
 
 .form__input:focus {
-    outline: none;
-}
+    outline: 1px solid #4285F4;
+  }
 
 .form__error {
     font-weight: 400;

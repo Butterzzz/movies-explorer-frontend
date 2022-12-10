@@ -44,6 +44,10 @@
   text-align: center;
 }
 
+.search-form__input:focus {
+  outline: 1px solid #4285F4;
+}
+
 .search-form__input::placeholder {
   color: #8B8B8B;
 }

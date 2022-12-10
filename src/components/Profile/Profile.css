@@ -37,7 +37,7 @@
   align-items: center;
   column-gap: 147px;
   border-bottom: 1px solid #424242;
-  padding: 17px 0 16px 0;
+  padding: 11px 0 11px 0;
 }
 
 .profile-form__container:last-child {
@@ -60,6 +60,11 @@
   line-height: 13px;
   color: #FFF;
   text-align: end;
+  padding: 6px 0 6px 0;
+}
+
+.profile-form__input:focus {
+  outline: 1px solid #4285F4;
 }
 
 .profile__error {
