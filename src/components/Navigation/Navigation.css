@@ -1,6 +1,10 @@
 .menu {
   display: flex;
   align-items: center;
+}
+
+.menu_auth {
+  flex-basis: calc(50% + 106px);
   justify-content: space-between;
 }
 
@@ -13,7 +17,7 @@
   margin: 0;
 }
 
-.menu__list-auth {
+.menu__list_auth {
   column-gap: 16px;
 }
 
@@ -60,7 +64,6 @@
   border: 2px solid rgba(170, 170, 170, 0.2);
   border-radius: 50px;
   padding: 6px 10px;
-  margin: 0 0 0 364px;
 }
 
 .menu__profile::before {
@@ -82,14 +85,8 @@
   background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 880px) {
-  .menu__profile {
-    margin: 0 0 0 182px;
-  }
-}
-
 @media screen and (max-width: 768px) {
-  .menu__list-auth {
+  .menu__list_auth {
     display: none;
   }
 

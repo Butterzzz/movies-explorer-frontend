@@ -13,6 +13,9 @@ const MoviesCardList = ({ moviesList }) => {
           />
         ))}
       </ul>
+
+      <button className="movies__more-button button" type="button" aria-label='Загрузить ещё'>Ещё</button>
+
     </section>
   )
 }

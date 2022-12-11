@@ -18,8 +18,8 @@ const Navigation = ({ isLoggedIn }) => {
     <>
       {isLoggedIn ? (
         <>
-          <nav className="menu" >
-            <ul className="menu__list menu__list-auth">
+          <nav className="menu menu_auth" >
+            <ul className="menu__list menu__list_auth">
 
               <li className="menu__list-item">
                 <NavLink
@@ -40,20 +40,21 @@ const Navigation = ({ isLoggedIn }) => {
               </li>
 
             </ul>
-
             <NavLink
               to="/profile"
               className="menu__profile button">
               Аккаунт
             </NavLink>
 
-            <button className="menu__button button" type="button" onClick={handleOpenMenuClick} />
-
-            {isLoggedIn && <PopupMenu
-              isOpen={isMenuPopupOpen}
-              onClose={closeAllPopups}
-            />}
           </nav >
+
+          <button className="menu__button button" type="button" onClick={handleOpenMenuClick} />
+
+          {isLoggedIn && <PopupMenu
+            isOpen={isMenuPopupOpen}
+            onClose={closeAllPopups}
+          />
+          }
         </>
       ) : (
         <nav className="menu">

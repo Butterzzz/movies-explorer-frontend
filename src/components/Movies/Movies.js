@@ -13,9 +13,6 @@ const Movies = ({ movies }) => {
         moviesList={movies}
       />
       }
-      <div className="movies__more-button-container">
-        <button className="movies__more-button button" type="button">Ещё</button>
-      </div>
     </main>
   )
 }

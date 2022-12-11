@@ -45,9 +45,10 @@
 .techs__list {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  gap: 10px;
   margin: 0 auto;
   padding: 100px 0 0 0;
 }
