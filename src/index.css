@@ -1,0 +1,10 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+:root {
+  --transition: all 400ms ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}

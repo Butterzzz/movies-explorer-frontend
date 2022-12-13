@@ -1,0 +1,130 @@
+.techs {
+  background-color: #272727;
+}
+
+.techs__title {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+  color: #FFF;
+  margin: 0;
+}
+
+.techs__container {
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 110px 70px 110px;
+}
+
+.techs__heading {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #FFF;
+  margin: 0 auto;
+  padding: 70px 0 0 0;
+}
+
+.techs__subheading {
+  max-width: 460px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #FFF;
+  margin: 0 auto;
+  padding: 26px 0 0 0;
+}
+
+.techs__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 100px 0 0 0;
+}
+
+.techs__list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  color: #FFF;
+  background-color: #303030;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__container {
+    padding: 90px 50px;
+  }
+
+  .techs__heading {
+    padding: 80px 0 0 0;
+  }
+
+  .techs__subheading {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 22px 0 0 0;
+  }
+
+  .techs__list {
+    padding: 83px 0 0 0;
+  }
+
+  .techs__list-item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .techs__container {
+    padding: 70px 14px;
+  }
+
+  .techs__title {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    padding-bottom: 28px;
+  }
+
+  .techs__heading {
+    font-size: 30px;
+    line-height: 36px;
+    padding: 60px 0 0 0;
+  }
+
+  .techs__subheading {
+    font-size: 11px;
+    line-height: 16px;
+    padding: 24px 0 0 0;
+  }
+
+  .techs__list {
+    padding: 50px 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, 84px);
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}

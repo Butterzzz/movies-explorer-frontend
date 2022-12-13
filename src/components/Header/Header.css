@@ -1,0 +1,30 @@
+.header {
+  background-color: #202020;;
+}
+
+.header_type_colored {
+  background-color: #073042;
+}
+
+.header__container {
+  max-width: 1280px;
+  max-height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 18px 70px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+  .header__container {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .header__container {
+    padding: 18px 14px;
+  }
+}
