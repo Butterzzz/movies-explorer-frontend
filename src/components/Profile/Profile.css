@@ -74,6 +74,11 @@
   text-align: center;
   color: #FF004C;
   margin: auto 0 20px 0;
+  visibility: hidden;
+}
+
+.profile__error_active {
+  visibility: visible;
 }
 
 .profile__button {

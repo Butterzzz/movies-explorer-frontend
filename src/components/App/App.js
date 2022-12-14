@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useHistory } from 'react-router-dom'
 import './App.css'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import Header from '../Header/Header'
@@ -13,18 +13,39 @@ import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import Footer from '../Footer/Footer'
 import moviesList from '../../data/movies'
-// import * as MainApi from '../../utils/MainApi'
+import * as MainApi from '../../utils/MainApi'
 // import * as MoviesApi from '../../utils/MoviesApi'
 
 const App = () => {
 
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setisIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState(null);
+
+  const history = useHistory();
+
   useEffect(() => {
     setMovies(moviesList);
   }, [])
+
+   // Регистрация
+  function onRegister(name, email, password) {
+    setIsLoading(true);
+    MainApi.register(name, email, password)
+      .then(data => {
+        if (data._id) {
+          history.push('/signin');
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -54,7 +75,10 @@ const App = () => {
           </ProtectedRoute>
 
           <Route path="/signup">
-            <Register />
+            <Register
+              onRegister={onRegister}
+              isLoading={isLoading}
+            />
           </Route>
 
           <Route path="/signin">

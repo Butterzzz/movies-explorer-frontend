@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.movies-explorer.gss.nomoredomains.club';
+export const BASE_URL = 'https://api.movies-explorer.gss.nomoredomains.club';
 
 function checkServerResponse(res) {
     if (res.ok) {

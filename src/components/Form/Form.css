@@ -58,7 +58,11 @@
     font-size: 10px;
     line-height: 12px;
     color: #EE3465;
-    /* visibility: hidden; */
+    visibility: hidden;
+}
+
+.form__error_active {
+    visibility: visible;
 }
 
 .form__error-request {
@@ -68,6 +72,11 @@
     text-align: center;
     color: #FF004C;
     margin: auto 0 0;
+    visibility: hidden;
+}
+
+.form__error-request_active {
+    visibility: visible;
 }
 
 .form__button {

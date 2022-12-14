@@ -1,14 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Form from '../Form/Form'
 import './Register.css'
 
-const Register = () => {
+const Register = ({ onRegister, isLoading }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleNameInput(evt) {
+    setName(evt.target.value);
+  }
+
+  function handleEmailInput(evt) {
+    setEmail(evt.target.value);
+  }
+
+  function handlePasswordInput(evt) {
+    setPassword(evt.target.value);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    onRegister(name, email, password);
+    setName('');
+    setEmail('');
+    setPassword('');
+  }
+
   return (
     <section className="register">
       <Form
         title="Добро пожаловать!"
         name="register-form"
-        submitText="Зарегистрироваться"
+        onSubmit={handleSubmit}
+        submitText={isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
         isRegister={true}
       >
         <label className="form__field" htmlFor="register-name">Имя</label>
@@ -18,6 +44,8 @@ const Register = () => {
           type="text"
           name="name"
           placeholder="Имя"
+          value={name}
+          onChange={handleNameInput}
           required
         />
 
@@ -30,6 +58,8 @@ const Register = () => {
           type="email"
           name="email"
           placeholder="E-mail"
+          value={email}
+          onChange={handleEmailInput}
           required
         />
 
@@ -42,6 +72,8 @@ const Register = () => {
           type="password"
           name="password"
           placeholder="Пароль"
+          value={password}
+          onChange={handlePasswordInput}
           required
         />
 
