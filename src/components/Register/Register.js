@@ -1,31 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Form from '../Form/Form'
+import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './Register.css'
 
 const Register = ({ onRegister, isLoading }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  function handleNameInput(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleEmailInput(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handlePasswordInput(evt) {
-    setPassword(evt.target.value);
-  }
+  const { values, errors, handleChange, isValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    onRegister(name, email, password);
-    setName('');
-    setEmail('');
-    setPassword('');
+    onRegister(values.name, values.email, values.password);
+    resetForm();
   }
 
   return (
@@ -36,6 +21,8 @@ const Register = ({ onRegister, isLoading }) => {
         onSubmit={handleSubmit}
         submitText={isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
         isRegister={true}
+        isValid={isValid}
+        isLoading={isLoading}
       >
         <label className="form__field" htmlFor="register-name">Имя</label>
         <input
@@ -44,12 +31,15 @@ const Register = ({ onRegister, isLoading }) => {
           type="text"
           name="name"
           placeholder="Имя"
-          value={name}
-          onChange={handleNameInput}
+          value={values.name || ""}
+          onChange={handleChange}
+          minLength="2"
+          maxLength="30"
+          pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" // латиница, кириллица, пробел или дефис
           required
         />
 
-        <span className="form__error">Ошибка</span>
+        <span className="form__error">{errors.name}</span>
 
         <label className="form__field" htmlFor="register-email">E-mail</label>
         <input
@@ -58,12 +48,12 @@ const Register = ({ onRegister, isLoading }) => {
           type="email"
           name="email"
           placeholder="E-mail"
-          value={email}
-          onChange={handleEmailInput}
+          value={values.email || ""}
+          onChange={handleChange}
           required
         />
 
-        <span className="form__error">Ошибка</span>
+        <span className="form__error">{errors.email}</span>
 
         <label className="form__field" htmlFor="register-password">Пароль</label>
         <input
@@ -72,12 +62,13 @@ const Register = ({ onRegister, isLoading }) => {
           type="password"
           name="password"
           placeholder="Пароль"
-          value={password}
-          onChange={handlePasswordInput}
+          value={values.password || ""}
+          onChange={handleChange}
+          minLength="8"
           required
         />
 
-        <span className="form__error">Ошибка</span>
+        <span className="form__error">{errors.password}</span>
       </Form>
     </section>
   )

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Form.css'
 import Logo from '../Logo/Logo'
 
-const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin }) => {
+const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin, isValid, isLoading }) => {
   return (
     <section className="form">
       <div className="form__logo-container">
@@ -14,7 +14,14 @@ const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin
         {children}
 
         <span className="form__error-request">Ошибки после отправки запроса</span>
-        <button className="form__button button" type="submit">{submitText}</button>
+
+        <button
+          className={`form__button button ${!isValid || isLoading ? 'form__button_disabled' : ''}`}
+          type="submit"
+          disabled={!isValid || isLoading}>
+          {submitText}
+        </button>
+
       </form>
 
       {isRegister && (<div className="form__question-container">
