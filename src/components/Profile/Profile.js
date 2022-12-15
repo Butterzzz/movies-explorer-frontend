@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Profile.css'
 
-const Profile = ({ name = 'Пользователь', email = 'email' }) => {
+const Profile = ({ onLogout, onSubmit }) => {
   return (
     <section className="profile">
       <div className="profile__container">
-        <h2 className="profile__title">Привет, {name}!</h2>
+        <h2 className="profile__title">Привет</h2>
         <form className="profile__form profile-form">
 
           <div className="profile-form__container">
@@ -37,7 +37,7 @@ const Profile = ({ name = 'Пользователь', email = 'email' }) => {
         <span className="profile__error">При обновлении профиля произошла ошибка.</span>
 
         <Link to="/11" className="profile__button profile__button_type_edit button">Редактировать</Link>
-        <Link to="/22" className="profile__button profile__button_type_logout button">Выйти из аккаунта</Link>
+        <button className="profile__button profile__button_type_logout button" onClick={onLogout}>Выйти из аккаунта</button>
       </div>
     </section>
   )

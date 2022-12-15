@@ -19,7 +19,7 @@ import * as MainApi from '../../utils/MainApi'
 const App = () => {
 
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState(null);
@@ -30,7 +30,7 @@ const App = () => {
     setMovies(moviesList);
   }, [])
 
-   // Регистрация
+  // Регистрация
   function onRegister(name, email, password) {
     setIsLoading(true);
     MainApi.register(name, email, password)
@@ -45,6 +45,54 @@ const App = () => {
       .finally(() => {
         setIsLoading(false);
       })
+  };
+
+  // Логин
+  function onLogin(email, password) {
+    setIsLoading(true);
+    MainApi.authorize(email, password)
+      .then(data => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          setIsLoggedIn(true);
+          history.push('/movies');
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  };
+
+  // если у пользователя есть токен в localStorage, эта функция проверит, действующий он или нет
+  function tokenCheck() {
+    const token = localStorage.getItem('jwt');
+
+    if (token) {
+      MainApi.getUserInfo(token)
+        .then(res => {
+          if (res) {
+            setIsLoggedIn(true);
+            setCurrentUser(res)
+            history.push('/movies');
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
+  useEffect(() => {
+    tokenCheck()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn])
+
+  // Выход из профиля
+  function signOut() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    history.push('/signin');
   };
 
   return (
@@ -71,7 +119,9 @@ const App = () => {
 
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
-            <Profile />
+            <Profile
+              onLogout={signOut}
+            />
           </ProtectedRoute>
 
           <Route path="/signup">
@@ -82,7 +132,10 @@ const App = () => {
           </Route>
 
           <Route path="/signin">
-            <Login />
+            <Login
+              onLogin={onLogin}
+              isLoading={isLoading}
+            />
           </Route>
 
           <Route path="*">
