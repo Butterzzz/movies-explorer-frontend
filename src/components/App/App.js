@@ -88,11 +88,22 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn])
 
+  // Редактирование профиля
+  function handleUpdateUser(name, email) {
+    setIsLoading(true);
+    MainApi.updateUserInfo(name, email)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => { console.log(err) })
+      .finally(() => { setIsLoading(false); })
+  }
+
   // Выход из профиля
   function signOut() {
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
-    history.push('/signin');
+    history.push('/');
   };
 
   return (
@@ -120,7 +131,8 @@ const App = () => {
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
             <Profile
-              onLogout={signOut}
+              onSubmit={handleUpdateUser}
+              onSignOut={signOut}
             />
           </ProtectedRoute>
 

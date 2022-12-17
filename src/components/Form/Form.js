@@ -16,7 +16,7 @@ const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin
         <span className="form__error-request">Ошибки после отправки запроса</span>
 
         <button
-          className={`form__button button ${!isValid || isLoading ? 'form__button_disabled' : ''}`}
+          className="form__button button"
           type="submit"
           disabled={!isValid || isLoading}>
           {submitText}
