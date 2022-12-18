@@ -115,7 +115,14 @@ const App = () => {
       .then((res) => {
         setCurrentUser(res);
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => {
+        console.log(err)
+        if (err === 409) {
+          return setRequestError('Пользователь с таким email уже существует');
+        } else {
+          return setRequestError('При обновлении профиля произошла ошибка');
+        }
+      })
       .finally(() => { setIsLoading(false); })
   }
 
@@ -153,6 +160,7 @@ const App = () => {
             <Profile
               onSubmit={handleUpdateUser}
               onSignOut={signOut}
+              requestError={requestError}
             />
           </ProtectedRoute>
 
