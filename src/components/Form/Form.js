@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Form.css'
 import Logo from '../Logo/Logo'
 
-const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin, isValid, isLoading }) => {
+const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin, isValid, isLoading, requestError }) => {
   return (
     <section className="form">
       <div className="form__logo-container">
@@ -13,7 +13,7 @@ const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin
         <h2 className="form__title">{title}</h2>
         {children}
 
-        <span className="form__error-request">Ошибки после отправки запроса</span>
+        <span className="form__error-request">{requestError}</span>
 
         <button
           className="form__button button"

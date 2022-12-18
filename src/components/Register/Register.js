@@ -3,7 +3,7 @@ import Form from '../Form/Form'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './Register.css'
 
-const Register = ({ onRegister, isLoading }) => {
+const Register = ({ onRegister, isLoading, requestError }) => {
   const { values, errors, handleChange, isValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(evt) {
@@ -23,6 +23,7 @@ const Register = ({ onRegister, isLoading }) => {
         isRegister={true}
         isValid={isValid}
         isLoading={isLoading}
+        requestError={requestError}
       >
         <label className="form__field" htmlFor="register-name">Имя</label>
         <input

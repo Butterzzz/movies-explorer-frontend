@@ -24,6 +24,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState(null);
 
+  const [requestError, setRequestError] = useState('');
+
   const history = useHistory();
 
   useEffect(() => {
@@ -40,7 +42,14 @@ const App = () => {
         }
       })
       .catch((err) => {
-        console.log(err)
+        if (err === 409) {
+          return setRequestError('Пользователь с таким email уже существует');
+        }
+        if (err === 500) {
+          return setRequestError('На сервере произошла ошибка');
+        } else {
+          return setRequestError('При регистрации пользователя произошла ошибка');
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -60,6 +69,17 @@ const App = () => {
       })
       .catch((err) => {
         console.log(err)
+        if (err === 401) {
+          return setRequestError('Вы ввели неправильный логин или пароль');
+        }
+        if (err === 400) {
+          return setRequestError('При авторизации произошла ошибка. Переданный токен некорректен');
+        }
+        if (err === 500) {
+          return setRequestError('На сервере произошла ошибка');
+        } else {
+          return setRequestError('При авторизации произошла ошибка. Токен не передан или передан не в том формате');
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -140,6 +160,7 @@ const App = () => {
             <Register
               onRegister={onRegister}
               isLoading={isLoading}
+              requestError={requestError}
             />
           </Route>
 
@@ -147,6 +168,7 @@ const App = () => {
             <Login
               onLogin={onLogin}
               isLoading={isLoading}
+              requestError={requestError}
             />
           </Route>
 
