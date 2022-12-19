@@ -12,9 +12,8 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import Footer from '../Footer/Footer'
-import moviesList from '../../data/movies'
 import * as MainApi from '../../utils/MainApi'
-// import * as MoviesApi from '../../utils/MoviesApi'
+import * as MoviesApi from '../../utils/MoviesApi'
 
 const App = () => {
 
@@ -22,15 +21,11 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
 
   const [requestError, setRequestError] = useState('');
 
   const history = useHistory();
-
-  useEffect(() => {
-    setMovies(moviesList);
-  }, [])
 
   // Регистрация
   function onRegister(name, email, password) {
@@ -133,19 +128,35 @@ const App = () => {
     history.push('/');
   };
 
+  // Поиск фильмов
+  function handleSearchMovie() {
+    setIsLoading(true);
+    MoviesApi.getAllMovies()
+      .then((res) => {
+        setMovies(res);
+        localStorage.setItem('movies', JSON.stringify(res));
+      })
+      .catch((err) => console.log('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'))
+      .finally(() => { setIsLoading(false); })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Switch>
           <Route exact path="/">
-            <Header />
+            <Header isLoggedIn={isLoggedIn} />
             <Main />
             <Footer />
           </Route>
 
           <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
-            <Movies movies={movies} />
+            <Movies
+              movies={movies}
+              onSearch={handleSearchMovie}
+              isLoading={isLoading}
+            />
             <Footer />
           </ProtectedRoute>
 
