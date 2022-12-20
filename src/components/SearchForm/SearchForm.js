@@ -3,7 +3,6 @@ import RoundedSwitch from '../RoundedSwitch/RoundedSwitch'
 import './SearchForm.css'
 
 const SearchForm = ({ onSearch }) => {
-
   const [searchValue, setSearchValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   // const [checkboxStatus, setCheckboxStatus] = useState(false);
@@ -24,6 +23,7 @@ const SearchForm = ({ onSearch }) => {
     }
 
     onSearch(searchValue);
+    setSearchValue('');
   }
 
   return (

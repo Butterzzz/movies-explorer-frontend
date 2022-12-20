@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchForm from '../SearchForm/SearchForm'
-// import Preloader from '../Preloader/Preloader'
+import Preloader from '../Preloader/Preloader'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import './Movies.css'
 
-const Movies = ({ movies }) => {
+const Movies = ({ movies, onSearch, isLoading }) => {
+
   return (
     <main className="content">
-      <SearchForm />
-      {/* <Preloader /> */}
-      {movies && <MoviesCardList
-        moviesList={movies}
+      <SearchForm
+        onSearch={onSearch}
       />
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <MoviesCardList
+          movies={movies}
+        />
+      )
       }
+
+
     </main>
   )
 }

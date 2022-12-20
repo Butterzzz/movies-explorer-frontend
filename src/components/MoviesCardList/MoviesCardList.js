@@ -2,13 +2,13 @@ import React from 'react'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import './MoviesCardList.css'
 
-const MoviesCardList = ({ moviesList }) => {
+const MoviesCardList = ({ movies }) => {
   return (
     <section className="movies" aria-label="Карточки фильмов">
       <ul className="movies__list">
-        {moviesList.map((movie) => (
+        {movies.map((movie) => (
           <MoviesCard
-            key={movie._id}
+            key={movie.id}
             movie={movie}
           />
         ))}

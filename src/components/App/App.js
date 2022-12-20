@@ -21,7 +21,9 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+
   const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const [requestError, setRequestError] = useState('');
 

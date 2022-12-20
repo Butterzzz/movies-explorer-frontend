@@ -1,17 +1,53 @@
 import React from 'react'
 import './MoviesCard.css'
 
-const MoviesCard = ({ movie }) => {
+const MoviesCard = ({ movie, savedMovies, onClick }) => {
+
+  // Вычисляем длительность фильма
+  function calcMovieDuration(duration) {
+    if (duration > 59) {
+      const hours = (duration - duration % 60) / 60;
+      const minutes = duration % 60;
+      return `${hours}ч ${minutes > 0 ? minutes + 'м' : ''}`
+    }
+    return `${duration}м`;
+  }
+
+
+  function handleClick() {
+
+  }
+
+  function handleSaveMovie() {
+
+  }
+
   return (
     <li className="movies__list-item">
       <article className="card">
-        <img className="card__image" src={movie.image} alt={movie.nameRU} />
+        <a
+          className="card__link"
+          href={movie.trailerLink}
+          target='_blank'
+          rel="noreferrer"
+          title="Посмотреть трейлер"
+        >
+          <img className="card__image" src={`${'https://api.nomoreparties.co'}${movie.image.url}`} alt={movie.nameRU} />
+        </a>
+
         <div className="card__description">
           <div className="card__wrapper">
             <h2 className="card__title">{movie.nameRU}</h2>
-            <button className="card__button button" type="button" aria-label="Cохранить в коллекцию" />
+
+            <button
+              className="card__button button"
+              type="button"
+              aria-label="Cохранить в коллекцию"
+              onClick={handleSaveMovie}
+            />
+
           </div>
-          <p className="card__duration">{movie.duration}</p>
+          <p className="card__duration">{calcMovieDuration(movie.duration)}</p>
         </div>
       </article>
     </li>

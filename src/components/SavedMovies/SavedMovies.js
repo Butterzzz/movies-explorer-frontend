@@ -12,7 +12,7 @@ const SavedMovies = ({ movies }) => {
       <SearchForm />
       {/* <Preloader /> */}
       {savedMovies && <MoviesCardList
-        moviesList={savedMovies}
+        movies={savedMovies}
       />
       }
     </main>
