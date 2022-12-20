@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import './App.css'
+// Компоненты
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import Header from '../Header/Header'
 import Main from '../Main/Main'
@@ -12,6 +13,7 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import Footer from '../Footer/Footer'
+// API
 import * as MainApi from '../../utils/MainApi'
 import * as MoviesApi from '../../utils/MoviesApi'
 
@@ -19,23 +21,20 @@ const App = () => {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
-
-  const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-
+  const [movies, setMovies] = useState([]); // массив с фильмами с сервера
+  // const [savedMovies, setSavedMovies] = useState([]);
   const [requestError, setRequestError] = useState('');
-
   const history = useHistory();
 
-  // Регистрация
-  function onRegister(name, email, password) {
+
+  // Регистрация пользователя
+  function handleRegister(name, email, password) {
     setIsLoading(true);
     MainApi.register(name, email, password)
       .then(data => {
         if (data._id) {
-          history.push('/signin');
+          handleLogin(email, password)
         }
       })
       .catch((err) => {
@@ -54,7 +53,7 @@ const App = () => {
   };
 
   // Логин
-  function onLogin(email, password) {
+  function handleLogin(email, password) {
     setIsLoading(true);
     MainApi.authorize(email, password)
       .then(data => {
@@ -83,10 +82,16 @@ const App = () => {
       })
   };
 
-  // если у пользователя есть токен в localStorage, эта функция проверит, действующий он или нет
+  // Выход из профиля
+  function handleSignOut() {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    history.push('/');
+  };
+
+  // Проверка токена
   function tokenCheck() {
     const token = localStorage.getItem('jwt');
-
     if (token) {
       MainApi.getUserInfo(token)
         .then(res => {
@@ -123,13 +128,6 @@ const App = () => {
       .finally(() => { setIsLoading(false); })
   }
 
-  // Выход из профиля
-  function signOut() {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    history.push('/');
-  };
-
   // Поиск фильмов
   function handleSearchMovie() {
     setIsLoading(true);
@@ -141,6 +139,15 @@ const App = () => {
       .catch((err) => console.log('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'))
       .finally(() => { setIsLoading(false); })
   }
+
+  // Получение всех сохранённые текущим пользователем фильмов
+  // MainApi.getSavedMovies
+
+  // Сохранение фильма
+  // MainApi.createMovie
+
+  // Удаление сохранённого фильма по id
+  // MainApi.deleteMovie(movieId)
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -164,7 +171,9 @@ const App = () => {
 
           <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
-            <SavedMovies movies={movies} />
+            <SavedMovies
+              movies={movies}
+            />
             <Footer />
           </ProtectedRoute>
 
@@ -172,14 +181,14 @@ const App = () => {
             <Header isLoggedIn={isLoggedIn} />
             <Profile
               onSubmit={handleUpdateUser}
-              onSignOut={signOut}
+              onSignOut={handleSignOut}
               requestError={requestError}
             />
           </ProtectedRoute>
 
           <Route path="/signup">
             <Register
-              onRegister={onRegister}
+              onRegister={handleRegister}
               isLoading={isLoading}
               requestError={requestError}
             />
@@ -187,7 +196,7 @@ const App = () => {
 
           <Route path="/signin">
             <Login
-              onLogin={onLogin}
+              onLogin={handleLogin}
               isLoading={isLoading}
               requestError={requestError}
             />

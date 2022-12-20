@@ -1,26 +1,8 @@
 import React from 'react'
 import './MoviesCard.css'
+import { calcMovieDuration } from '../../utils/utils.js';
 
 const MoviesCard = ({ movie, savedMovies, onClick }) => {
-
-  // Вычисляем длительность фильма
-  function calcMovieDuration(duration) {
-    if (duration > 59) {
-      const hours = (duration - duration % 60) / 60;
-      const minutes = duration % 60;
-      return `${hours}ч ${minutes > 0 ? minutes + 'м' : ''}`
-    }
-    return `${duration}м`;
-  }
-
-
-  function handleClick() {
-
-  }
-
-  function handleSaveMovie() {
-
-  }
 
   return (
     <li className="movies__list-item">
@@ -43,7 +25,7 @@ const MoviesCard = ({ movie, savedMovies, onClick }) => {
               className="card__button button"
               type="button"
               aria-label="Cохранить в коллекцию"
-              onClick={handleSaveMovie}
+              onClick={onClick}
             />
 
           </div>
