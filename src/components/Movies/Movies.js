@@ -4,12 +4,12 @@ import Preloader from '../Preloader/Preloader'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import './Movies.css'
 
-const Movies = ({ movies, onSearch, isLoading }) => {
+const Movies = ({ movies, handleSearchMovie, isLoading }) => {
 
   return (
     <main className="content">
       <SearchForm
-        onSearch={onSearch}
+        handleSearchMovie={handleSearchMovie}
       />
       {isLoading ? (
         <Preloader />

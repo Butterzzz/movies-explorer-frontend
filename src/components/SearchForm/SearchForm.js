@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import RoundedSwitch from '../RoundedSwitch/RoundedSwitch'
+import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './SearchForm.css'
 
-const SearchForm = ({ onSearch, handleShortMovies, isShortMovies }) => {
-  const [searchValue, setSearchValue] = useState('');
+const SearchForm = ({ handleSearchMovie, handleShortMovies, isShortMovies }) => {
+  const { values, handleChange, isValid } = useFormWithValidation();
+
   const [errorMessage, setErrorMessage] = useState('');
-  // const [checkboxStatus, setCheckboxStatus] = useState(false);
-
-  useEffect(() => {
-    setErrorMessage('');
-  }, [searchValue]);
-
-  function handleValueChange(evt) {
-    setSearchValue(evt.target.value);
-  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    if (searchValue.length === 0) {
-      setErrorMessage('Нужно ввести ключевое слово');
-      return;
-    }
 
-    onSearch(searchValue);
-    setSearchValue('');
+    isValid ? (
+      handleSearchMovie(values.search)
+    ) : (
+      setErrorMessage('Нужно ввести ключевое слово')
+    )
   }
+
+  useEffect(() => {
+    setErrorMessage("");
+  }, [isValid]);
 
   return (
     <section className="search">
@@ -38,9 +34,11 @@ const SearchForm = ({ onSearch, handleShortMovies, isShortMovies }) => {
           <input
             className="search-form__input"
             type="text"
+            name="search"
             placeholder="Фильм"
-            value={searchValue || ''}
-            onChange={handleValueChange}
+            value={values.search || ""}
+            onChange={handleChange}
+            required
           />
           <button
             className="search-form__button button"

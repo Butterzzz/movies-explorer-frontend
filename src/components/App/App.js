@@ -163,7 +163,7 @@ const App = () => {
             <Header isLoggedIn={isLoggedIn} />
             <Movies
               movies={movies}
-              onSearch={handleSearchMovie}
+              handleSearchMovie={handleSearchMovie}
               isLoading={isLoading}
             />
             <Footer />
