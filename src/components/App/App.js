@@ -23,7 +23,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]); // массив с фильмами с сервера
-  // const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]); // массив сохраненных, текущим пользователем, фильмов
   const [requestError, setRequestError] = useState('');
   const history = useHistory();
 
@@ -140,14 +140,42 @@ const App = () => {
       .finally(() => { setIsLoading(false); })
   }
 
-  // Получение всех сохранённые текущим пользователем фильмов
-  // MainApi.getSavedMovies
+  // Получение всех сохранённые текущим пользователем фильмов (MainApi.getSavedMovies)
+  useEffect(() => {
+    if (isLoggedIn && currentUser) {
+      MainApi.getSavedMovies()
+        .then(data => {
+          const currentUserMoviesList = data.filter(m => m.owner === currentUser._id);
+          setSavedMovies(currentUserMoviesList);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [currentUser, isLoggedIn]);
 
-  // Сохранение фильма
-  // MainApi.createMovie
+  // Сохранение фильма (MainApi.createMovie)
+  function handleSaveMovie(movie) {
+    MainApi.createMovie(movie)
+      .then(newMovie => setSavedMovies([newMovie, ...savedMovies]))
+      .catch(err => console.log(err));
+  }
 
-  // Удаление сохранённого фильма по id
-  // MainApi.deleteMovie(movieId)
+  // Удаление сохранённого фильма по id (MainApi.deleteMovie(movieId))
+  function handleDeleteMovie(movie) {
+    const savedMovie = savedMovies.find(
+      (item) => item.movieId === movie.id || item.movieId === movie.movieId);
+    MainApi.deleteMovie(savedMovie._id)
+      .then(() => {
+        const newMoviesList = savedMovies.filter((m) => {
+          if (movie.id === m.movieId || movie.movieId === m.movieId) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        setSavedMovies(newMoviesList);
+      })
+      .catch(err => console.log(err));
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -163,7 +191,10 @@ const App = () => {
             <Header isLoggedIn={isLoggedIn} />
             <Movies
               movies={movies}
+              // savedMovies={savedMovies}
               handleSearchMovie={handleSearchMovie}
+              // onSaveClick={handleSaveMovie}
+              // onDeleteClick={handleDeleteMovie}
               isLoading={isLoading}
             />
             <Footer />
@@ -172,7 +203,7 @@ const App = () => {
           <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
             <SavedMovies
-              movies={movies}
+              savedMovies={savedMovies}
             />
             <Footer />
           </ProtectedRoute>
