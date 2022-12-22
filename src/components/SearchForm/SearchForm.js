@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import RoundedSwitch from '../RoundedSwitch/RoundedSwitch'
 import './SearchForm.css'
 
-const SearchForm = ({ onSearch }) => {
+const SearchForm = ({ onSearch, handleShortMovies, isShortMovies }) => {
   const [searchValue, setSearchValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   // const [checkboxStatus, setCheckboxStatus] = useState(false);
@@ -50,7 +50,10 @@ const SearchForm = ({ onSearch }) => {
           </button>
         </form>
 
-        <RoundedSwitch />
+        <RoundedSwitch
+          handleShortMovies={handleShortMovies}
+          isShortMovies={isShortMovies}
+        />
 
         <span className="search__error">{errorMessage}</span>
 
