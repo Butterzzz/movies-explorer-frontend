@@ -1,20 +1,29 @@
 import React from 'react'
 import SearchForm from '../SearchForm/SearchForm'
-// import Preloader from '../Preloader/Preloader'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import './SavedMovies.css'
 
-const SavedMovies = ({ movies }) => {
-  const savedMovies = movies?.filter(item => item.isSaved === true);
+const SavedMovies = ({ isLoading, handleShortMovies, isShortMovies, ...props }) => {
+
 
   return (
     <main className="content">
-      <SearchForm />
-      {/* <Preloader /> */}
-      {savedMovies && <MoviesCardList
-        movies={savedMovies}
+
+      <SearchForm
+        isSavedMovies={true}
+        isShortMovies={isShortMovies}
+        handleShortMovies={handleShortMovies}
+        handleSearchSavedMovies={props.handleSearchSavedMovies}
+      />
+
+      {<MoviesCardList
+        isLoading={isLoading}
+        isSavedMovies={true}
+        movies={props.movies}
+        handleDeleteMovie={props.handleDeleteMovie}
       />
       }
+
     </main>
   )
 }

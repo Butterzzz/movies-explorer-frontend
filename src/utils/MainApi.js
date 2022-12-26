@@ -75,19 +75,7 @@ export const getSavedMovies = () => {
 }
 
 // Создаём (сохраняем) фильм
-export const createMovie = ({
-  country,
-  director,
-  duration,
-  year,
-  description,
-  image,
-  trailerLink,
-  nameRU,
-  nameEN,
-  thumbnail,
-  movieId,
-}) => {
+export const createMovie = (movie) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
     headers: {
@@ -96,18 +84,18 @@ export const createMovie = ({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
     body: JSON.stringify({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      nameRU,
-      nameEN,
-      thumbnail,
-      movieId,
-    })
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: movie.image,
+      trailerLink: movie.trailerLink,
+      thumbnail: movie.thumbnail,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      movieId: movie.movieId,
+    }),
   })
     .then(checkServerResponse);
 };

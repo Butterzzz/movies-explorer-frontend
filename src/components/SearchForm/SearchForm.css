@@ -73,6 +73,10 @@
   margin: 15px 0 0 0;
 }
 
+.search__error_type_hidden {
+  visibility: hidden;
+}
+
 @media screen and (max-width: 768px) {
   .search__container {
     /* row-gap: 42px; */
