@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import RoundedSwitch from '../RoundedSwitch/RoundedSwitch'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './SearchForm.css'
 
 const SearchForm = ({ handleSearchMovie, handleShortMovies, isShortMovies }) => {
-  const { values, handleChange, isValid } = useFormWithValidation();
-
+  const location = useLocation()
+  const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleSubmit(evt) {
@@ -21,6 +22,15 @@ const SearchForm = ({ handleSearchMovie, handleShortMovies, isShortMovies }) => 
   useEffect(() => {
     setErrorMessage("");
   }, [isValid]);
+
+  // Состояние инпута из локального хранилища
+  useEffect(() => {
+    if (location.pathname === '/movies' && localStorage.getItem('movieSearch')) {
+      const searchValue = localStorage.getItem('movieSearch');
+      values.search = searchValue;
+      setIsValid(true);
+    }
+  }, [location]);
 
   return (
     <section className="search">
