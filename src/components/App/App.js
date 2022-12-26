@@ -223,8 +223,8 @@ const App = () => {
   function saveMovie(movie) {
     MainApi.createMovie(movie)
       .then((data) => {
-        const movies = [...savedMovies, data];
-        setSavedMovies(prev => ([...prev, data]));
+        const movies = [data, ...savedMovies];
+        setSavedMovies(prev => ([data, ...prev]));
         localStorage.setItem('savedMovies', JSON.stringify(movies))
       })
       .catch(err => console.log(err));
