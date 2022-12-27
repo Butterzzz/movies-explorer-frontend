@@ -130,10 +130,11 @@ const App = () => {
 
   // Выход из профиля
   function handleSignOut() {
-    localStorage.clear(); // TODO Почему-то не работает
+    localStorage.removeItem('jwt');
     localStorage.removeItem('movies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('searchValue');
+    localStorage.clear();
     setCurrentUser({});
     setApiMovies([]);
     setMovies([]);
