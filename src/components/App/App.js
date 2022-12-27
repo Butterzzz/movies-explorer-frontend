@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import './App.css'
 // Компоненты
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
