@@ -23,4 +23,6 @@
 
 ## Ссылки
 
+[Публичный адрес приложения](https://movies-explorer.gss.nomoredomains.club)
+[Публичный адрес сервера приложения](https://api.movies-explorer.gss.nomoredomains.club)
 [Макет в Фигме](https://www.figma.com/file/yixKRuNhCHnl3NDkjDnznZ/myDiploma?node-id=891%3A3857&t=zwUKJWAKC1V7OSi1-0)

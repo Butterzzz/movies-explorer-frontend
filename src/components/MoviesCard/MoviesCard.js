@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import './MoviesCard.css'
-import { calcMovieDuration } from '../../utils/calcMovieDuration'
+import { calcMovieDuration } from '../../utils/utils'
 
 const MoviesCard = (props) => {
 

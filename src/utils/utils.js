@@ -7,8 +7,3 @@ export function calcMovieDuration(duration) {
   }
   return `${duration}м`;
 }
-
-// Фильтр по длительности
-export function filterDuration(movies) {
-  return movies.filter((movie) => movie.duration < 40);
-}

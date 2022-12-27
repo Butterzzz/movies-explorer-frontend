@@ -16,8 +16,6 @@ import Footer from '../Footer/Footer'
 // API
 import * as MainApi from '../../utils/MainApi'
 import * as MoviesApi from '../../utils/MoviesApi'
-// // Утилиты
-// import { filterDuration } from '../../utils/utils'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({}); // Текущий пользователь
@@ -147,7 +145,17 @@ const App = () => {
 
   function handleShortMovies(evt) {
     setIsShortMovies(evt.target.checked);
+    // localStorage.setItem('shortMovies', !isShortMovies);
   }
+
+  // // Проверка чекбокса в localStorage
+  // useEffect(() => {
+  //   if (localStorage.getItem('shortMovies') === 'true') {
+  //     setIsShortMovies(true);
+  //   } else {
+  //     setIsShortMovies(false);
+  //   }
+  // }, []);
 
   function searchMoviesByKeyword(movies, keyword) {
     let foundMovies = [];
