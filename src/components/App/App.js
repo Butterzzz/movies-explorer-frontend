@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { Switch, Route, useHistory } from 'react-router-dom'
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom'
 import './App.css'
 // Компоненты
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -31,6 +31,7 @@ const App = () => {
   const [requestError, setRequestError] = useState('');
 
   const history = useHistory();
+  const location = useLocation();
 
   // ----------------------------- USERS ----------------------------- //
 
@@ -108,6 +109,7 @@ const App = () => {
 
   // Проверка токена
   function tokenCheck() {
+    const path = location.pathname;
     const token = localStorage.getItem('jwt');
     if (token) {
       MainApi.getUserInfo(token)
@@ -115,7 +117,7 @@ const App = () => {
           if (res) {
             setIsLoggedIn(true);
             setCurrentUser(res)
-            history.push('/movies');
+            history.push(path);
           }
         })
         .catch(err => console.log(err));
