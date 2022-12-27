@@ -1,60 +1,53 @@
-import React, { useState } from 'react'
-// import { useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import RoundedSwitch from '../RoundedSwitch/RoundedSwitch'
-// import { useFormWithValidation } from '../../hooks/useFormWithValidation'
+import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './SearchForm.css'
 
 const SearchForm = ({ handleShortMovies, isShortMovies, ...props }) => {
-  // const location = useLocation()
-  // const { values, handleChange, isValid } = useFormWithValidation();
-  // const [errorMessage, setErrorMessage] = useState('');
+  const location = useLocation()
+  const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // function handleSubmit(evt) {
-  //   evt.preventDefault();
-
-  //   isValid ? (
-  //     props.handleSearchMovie(values.search)
-  //   ) : (
-  //     setErrorMessage('Нужно ввести ключевое слово')
-  //   )
-  // }
-
-  // useEffect(() => {
-  //   setErrorMessage("");
-  // }, [isValid]);
-
-  // useEffect(() => {
-  //   if (location.pathname === '/movies' && localStorage.getItem('movieSearch')) {
-  //     const searchValue = localStorage.getItem('movieSearch');
-  //     values.search = searchValue;
-  //     setIsValid(true);
-  //   }
-  // }, [location]);
-
-  const [searchInput, setSearchInput] = useState('');
-  const [isSearchFormValid, setIsSearchFormValid] = useState(true);
-
-  function handleChange(evt) {
-    setSearchInput(evt.target.value);
-    setIsSearchFormValid(evt.target.checkValidity());
-  }
-
-  function onSubmit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
-    props.handleSearchMovies(searchInput);
+
+    isValid ? (
+      props.handleSearchMovies(values.search)
+    ) : (
+      setErrorMessage('Нужно ввести ключевое слово')
+    )
   }
 
   function onSubmitSavedMovies(evt) {
     evt.preventDefault();
-    props.handleSearchSavedMovies(searchInput);
+
+    isValid ? (
+      props.handleSearchSavedMovies(values.search)
+    ) : (
+      setErrorMessage('Нужно ввести ключевое слово')
+    )
   }
+
+  useEffect(() => {
+    setErrorMessage("");
+  }, [isValid]);
+
+  useEffect(() => {
+    if (location.pathname === '/movies' && localStorage.getItem('searchValue')) {
+      const searchValue = localStorage.getItem('searchValue');
+      values.search = searchValue;
+      setIsValid(true);
+    }
+  }, [location]);
 
   return (
     <section className="search">
       <div className="search__container">
 
         <form className="search-form"
-          onSubmit={props.isSavedMovies ? onSubmitSavedMovies : onSubmit}
+          onSubmit={props.isSavedMovies ? onSubmitSavedMovies : handleSubmit}
+          noValidate
         >
           <span className="search-form__icon"></span>
           <input
@@ -62,7 +55,7 @@ const SearchForm = ({ handleShortMovies, isShortMovies, ...props }) => {
             type="text"
             name="search"
             placeholder="Фильм"
-            // value={values.search || ""}
+            value={values.search || ""}
             onChange={handleChange}
             required
           />
@@ -79,8 +72,7 @@ const SearchForm = ({ handleShortMovies, isShortMovies, ...props }) => {
           isShortMovies={isShortMovies}
         />
 
-        {/* <span className="search__error">{errorMessage}</span> */}
-        <span className={`search__error ${isSearchFormValid && 'search__error_type_hidden'}`}>Нужно ввести ключевое слово</span>
+        <span className="search__error">{errorMessage}</span>
 
       </div>
     </section>

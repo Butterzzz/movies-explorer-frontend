@@ -81,12 +81,12 @@ const MoviesCardList = ({ isLoading, ...props }) => {
         ))}
       </ul>
 
-      {/* <button
-        className={`movies__more-button button ${props.isSavedMovies ? 'movies__more-button_type_hidden' // Скрыть
+      <button
+        className={`movies__more-button button ${props.isSavedMovies ? 'movies__more-button_type_hidden'
           : `${props.movies.length === renderedMovies.length ? 'movies__more-button_type_hidden' : ''}`}`}
         onClick={handleAddMovies}
       >Ещё
-      </button> */}
+      </button>
 
     </section>
   )

@@ -16,6 +16,8 @@ import Footer from '../Footer/Footer'
 // API
 import * as MainApi from '../../utils/MainApi'
 import * as MoviesApi from '../../utils/MoviesApi'
+// // Утилиты
+// import { filterDuration } from '../../utils/utils'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({}); // Текущий пользователь
@@ -130,20 +132,16 @@ const App = () => {
 
   // Выход из профиля
   function handleSignOut() {
+    localStorage.clear(); // TODO Почему-то не работает
+    localStorage.removeItem('movies');
+    localStorage.removeItem('savedMovies');
+    localStorage.removeItem('searchValue');
     setCurrentUser({});
-    localStorage.clear();
+    setApiMovies([]);
+    setMovies([]);
     setIsLoggedIn(false);
     history.push('/');
   };
-
-  // Загрузка данных пользователя
-  useEffect(() => {
-    MainApi.getUserInfo()
-      .then(data => {
-        setCurrentUser({ ...data });
-      })
-      .catch(err => console.log(err));
-  }, []);
 
   // ----------------------------- MOVIES ----------------------------- //
 
@@ -168,6 +166,7 @@ const App = () => {
 
   // Поиск фильмов
   function handleSearchMovie(keyword) {
+    localStorage.setItem('searchValue', keyword);
     setIsLoading(true);
     setMovies([]);
     setNotFound(false);
