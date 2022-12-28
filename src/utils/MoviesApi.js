@@ -1,6 +1,8 @@
+import { MOVIES_URL } from './constants';
+
 // Получаем все фильмы с BeatfilmMoviesApi
 export const getAllMovies = () => {
-  return fetch(`https://api.nomoreparties.co/beatfilm-movies`, {
+  return fetch(`${MOVIES_URL}`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',

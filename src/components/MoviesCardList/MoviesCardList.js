@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MoviesCard from '../MoviesCard/MoviesCard'
-import Preloader from "../Preloader/Preloader"
+import Preloader from '../Preloader/Preloader'
 import './MoviesCardList.css'
+import { NOT_FOUND_ERR_TEXT, REQUEST_ERR_TEXT } from '../../utils/constants'
 
 const MoviesCardList = ({ isLoading, ...props }) => {
 
@@ -61,13 +62,17 @@ const MoviesCardList = ({ isLoading, ...props }) => {
   return (
     <section className="movies" aria-label="Карточки фильмов">
       {isLoading && <Preloader />}
-      <p className={`movies__errors ${!props.moviesError && 'movies__errors_type_hidden'}`}
-      >Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен.</p>
-      <p
-        className={`movies__errors ${!props.notFound && 'movies__errors_type_hidden'}`}
-      >Ничего не найдено</p>
-      <p className={`movies__errors ${(props.isSavedMovies && props.movies.length === 0) ? '' : 'movies__errors_type_hidden'}`}
-      >Ничего не найдено</p>
+      <p className={`movies__errors ${!props.moviesError && 'movies__errors_type_hidden'}`}>
+        {REQUEST_ERR_TEXT}
+      </p>
+
+      <p className={`movies__errors ${!props.notFound && 'movies__errors_type_hidden'}`}>
+        {NOT_FOUND_ERR_TEXT}
+      </p>
+
+      <p className={`movies__errors ${(props.isSavedMovies && props.movies.length === 0) ? '' : 'movies__errors_type_hidden'}`}>
+        {NOT_FOUND_ERR_TEXT}
+      </p>
 
       <ul className="movies__list">
         {renderedMovies.map((movie) => (
@@ -85,7 +90,8 @@ const MoviesCardList = ({ isLoading, ...props }) => {
         className={`movies__more-button button ${props.isSavedMovies ? 'movies__more-button_type_hidden'
           : `${props.movies.length === renderedMovies.length ? 'movies__more-button_type_hidden' : ''}`}`}
         onClick={handleAddMovies}
-      >Ещё
+      >
+        Ещё
       </button>
 
     </section>
