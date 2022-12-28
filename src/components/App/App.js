@@ -160,20 +160,41 @@ const App = () => {
   //   }
   // }, []);
 
+  function filterShortMovies(movies) {
+    return movies.filter(movie => movie.duration < 40);
+  }
+
+  // Поиск по запросу пользователя
   function searchMoviesByKeyword(movies, keyword) {
     let foundMovies = [];
-
     movies.forEach((movie) => {
-      if (movie.nameRU.indexOf(keyword) > -1) {
+      const movieRu = String(movie.nameRU).toLowerCase().trim();
+      const movieEn = String(movie.nameEN).toLowerCase().trim();
+      const userMovie = keyword.toLowerCase().trim();
+      if (movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1) {
         if (isShortMovies) {
           movie.duration <= 40 && foundMovies.push(movie);
         } else {
           foundMovies.push(movie);
         }
       }
-    })
+    });
     return foundMovies;
   }
+
+  // function searchMoviesByKeyword(movies, keyword) {
+  //   let foundMovies = [];
+  //   movies.forEach((movie) => {
+  //     if (movie.nameRU.indexOf(keyword) > -1) {
+  //       if (isShortMovies) {
+  //         movie.duration <= 40 && foundMovies.push(movie);
+  //       } else {
+  //         foundMovies.push(movie);
+  //       }
+  //     }
+  //   })
+  //   return foundMovies;
+  // }
 
   // Поиск фильмов
   function handleSearchMovie(keyword) {
