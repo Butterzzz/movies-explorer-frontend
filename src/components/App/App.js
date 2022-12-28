@@ -16,6 +16,8 @@ import Footer from '../Footer/Footer'
 // API
 import * as MainApi from '../../utils/MainApi'
 import * as MoviesApi from '../../utils/MoviesApi'
+// Утилиты
+import { searchMoviesByKeyword } from '../../utils/utils'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({}); // Текущий пользователь
@@ -26,8 +28,8 @@ const App = () => {
   const [savedMovies, setSavedMovies] = useState([]); // Массив сохраненных, текущим пользователем, фильмов
   const [isShortMovies, setIsShortMovies] = useState(false);
 
-  const [notFound, setNotFound] = useState(false); // TODO
-  const [moviesError, setMoviesError] = useState(false); // TODO
+  const [notFound, setNotFound] = useState(false);
+  const [moviesError, setMoviesError] = useState(false);
   const [requestError, setRequestError] = useState('');
 
   const history = useHistory();
@@ -148,53 +150,7 @@ const App = () => {
 
   function handleShortMovies(evt) {
     setIsShortMovies(evt.target.checked);
-    // localStorage.setItem('shortMovies', !isShortMovies);
   }
-
-  // // Проверка чекбокса в localStorage
-  // useEffect(() => {
-  //   if (localStorage.getItem('shortMovies') === 'true') {
-  //     setIsShortMovies(true);
-  //   } else {
-  //     setIsShortMovies(false);
-  //   }
-  // }, []);
-
-  function filterShortMovies(movies) {
-    return movies.filter(movie => movie.duration < 40);
-  }
-
-  // Поиск по запросу пользователя
-  function searchMoviesByKeyword(movies, keyword) {
-    let foundMovies = [];
-    movies.forEach((movie) => {
-      const movieRu = String(movie.nameRU).toLowerCase().trim();
-      const movieEn = String(movie.nameEN).toLowerCase().trim();
-      const userMovie = keyword.toLowerCase().trim();
-      if (movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1) {
-        if (isShortMovies) {
-          movie.duration <= 40 && foundMovies.push(movie);
-        } else {
-          foundMovies.push(movie);
-        }
-      }
-    });
-    return foundMovies;
-  }
-
-  // function searchMoviesByKeyword(movies, keyword) {
-  //   let foundMovies = [];
-  //   movies.forEach((movie) => {
-  //     if (movie.nameRU.indexOf(keyword) > -1) {
-  //       if (isShortMovies) {
-  //         movie.duration <= 40 && foundMovies.push(movie);
-  //       } else {
-  //         foundMovies.push(movie);
-  //       }
-  //     }
-  //   })
-  //   return foundMovies;
-  // }
 
   // Поиск фильмов
   function handleSearchMovie(keyword) {
@@ -208,7 +164,7 @@ const App = () => {
       MoviesApi.getAllMovies()
         .then(resMovies => {
           setApiMovies(resMovies);
-          const searchResult = searchMoviesByKeyword(resMovies, keyword);
+          const searchResult = searchMoviesByKeyword(resMovies, keyword, isShortMovies);
 
           if (searchResult.length === 0) {
             setNotFound(true);
@@ -219,7 +175,6 @@ const App = () => {
           }
         })
         .catch(() => {
-          console.log('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
           setMoviesError(true);
           setMovies([]);
         })
@@ -227,7 +182,7 @@ const App = () => {
           setIsLoading(false);
         })
     } else {
-      const searchResult = searchMoviesByKeyword(apiMovies, keyword);
+      const searchResult = searchMoviesByKeyword(apiMovies, keyword, isShortMovies);
 
       if (searchResult.length === 0) {
         setMovies([]);
@@ -246,7 +201,7 @@ const App = () => {
 
   function searchSavedMovies(keyword) {
     const movies = JSON.parse(localStorage.getItem('savedMovies'));
-    const searchResult = searchMoviesByKeyword(movies, keyword);
+    const searchResult = searchMoviesByKeyword(movies, keyword, isShortMovies);
     setSavedMovies(searchResult);
   }
 

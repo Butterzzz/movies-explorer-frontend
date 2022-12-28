@@ -7,3 +7,21 @@ export function calcMovieDuration(duration) {
   }
   return `${duration}м`;
 }
+
+// Поиск по запросу пользователя
+export function searchMoviesByKeyword(movies, keyword, isShortMovies) {
+  let foundMovies = [];
+  movies.forEach((movie) => {
+    const movieRu = String(movie.nameRU).toLowerCase().trim();
+    const movieEn = String(movie.nameEN).toLowerCase().trim();
+    const userMovie = keyword.toLowerCase().trim();
+    if (movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1) {
+      if (isShortMovies) {
+        movie.duration <= 40 && foundMovies.push(movie);
+      } else {
+        foundMovies.push(movie);
+      }
+    }
+  });
+  return foundMovies;
+}
