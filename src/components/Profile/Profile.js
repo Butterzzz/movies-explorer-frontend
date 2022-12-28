@@ -3,7 +3,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './Profile.css'
 
-const Profile = ({ onSubmit, onSignOut, requestError }) => {
+const Profile = ({ onSubmit, onSignOut, profileError }) => {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, isValid, resetForm } = useFormWithValidation();
 
@@ -60,7 +60,7 @@ const Profile = ({ onSubmit, onSignOut, requestError }) => {
           </div>
 
           <div className="profile-form__nav">
-            <span className="profile__error">{requestError}</span>
+            <span className="profile__error">{profileError}</span>
 
             <button
               className="profile__button profile__button_type_edit button"

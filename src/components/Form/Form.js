@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'
 import './Form.css'
 import Logo from '../Logo/Logo'
 
-const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin, isValid, isLoading, requestError }) => {
+const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin, isValid, isLoading, registerError, loginError, clearErrors }) => {
+
+  function handleClearErrors() {
+    clearErrors();
+  }
+
   return (
     <section className="form">
       <div className="form__logo-container">
@@ -13,12 +18,14 @@ const Form = ({ name, title, children, onSubmit, submitText, isRegister, isLogin
         <h2 className="form__title">{title}</h2>
         {children}
 
-        <span className="form__error-request">{requestError}</span>
+        <span className="form__error-request">{registerError || loginError}</span>
 
         <button
           className="form__button button"
           type="submit"
-          disabled={!isValid || isLoading}>
+          disabled={!isValid || isLoading}
+          onClick={handleClearErrors}
+        >
           {submitText}
         </button>
 

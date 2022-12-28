@@ -30,10 +30,18 @@ const App = () => {
 
   const [notFound, setNotFound] = useState(false);
   const [moviesError, setMoviesError] = useState(false);
-  const [requestError, setRequestError] = useState('');
+  const [registerError, setRegisterError] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [profileError, setProfileError] = useState('');
 
   const history = useHistory();
   const location = useLocation();
+
+  function clearAllErrors() {
+    setRegisterError('');
+    setLoginError('');
+    setProfileError('');
+  }
 
   // ----------------------------- USERS ----------------------------- //
 
@@ -48,12 +56,12 @@ const App = () => {
       })
       .catch((err) => {
         if (err === 409) {
-          return setRequestError('Пользователь с таким email уже существует');
+          return setRegisterError('Пользователь с таким email уже существует');
         }
         if (err === 500) {
-          return setRequestError('На сервере произошла ошибка');
+          return setRegisterError('На сервере произошла ошибка');
         } else {
-          return setRequestError('При регистрации пользователя произошла ошибка');
+          return setRegisterError('При регистрации пользователя произошла ошибка');
         }
       })
       .finally(() => {
@@ -75,15 +83,15 @@ const App = () => {
       .catch((err) => {
         console.log(err)
         if (err === 401) {
-          return setRequestError('Вы ввели неправильный логин или пароль');
+          return setLoginError('Вы ввели неправильный логин или пароль');
         }
         if (err === 400) {
-          return setRequestError('При авторизации произошла ошибка. Переданный токен некорректен');
+          return setLoginError('При авторизации произошла ошибка. Переданный токен некорректен');
         }
         if (err === 500) {
-          return setRequestError('На сервере произошла ошибка');
+          return setLoginError('На сервере произошла ошибка');
         } else {
-          return setRequestError('При авторизации произошла ошибка. Токен не передан или передан не в том формате');
+          return setLoginError('При авторизации произошла ошибка. Токен не передан или передан не в том формате');
         }
       })
       .finally(() => {
@@ -97,13 +105,14 @@ const App = () => {
     MainApi.updateUserInfo(name, email)
       .then((res) => {
         setCurrentUser(res);
+        setProfileError('Профиль успешно обновлен');
       })
       .catch((err) => {
         console.log(err)
         if (err === 409) {
-          return setRequestError('Пользователь с таким email уже существует');
+          return setProfileError('Пользователь с таким email уже существует');
         } else {
-          return setRequestError('При обновлении профиля произошла ошибка');
+          return setProfileError('При обновлении профиля произошла ошибка');
         }
       })
       .finally(() => { setIsLoading(false); })
@@ -129,7 +138,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    tokenCheck()
+    tokenCheck();
   }, [isLoggedIn])
 
   // Выход из профиля
@@ -143,6 +152,7 @@ const App = () => {
     setApiMovies([]);
     setMovies([]);
     setIsLoggedIn(false);
+    clearAllErrors();
     history.push('/');
   };
 
@@ -296,7 +306,7 @@ const App = () => {
             <Profile
               onSubmit={handleUpdateUser}
               onSignOut={handleSignOut}
-              requestError={requestError}
+              profileError={profileError}
             />
           </ProtectedRoute>
 
@@ -304,7 +314,8 @@ const App = () => {
             <Register
               onRegister={handleRegister}
               isLoading={isLoading}
-              requestError={requestError}
+              registerError={registerError}
+              clearErrors={clearAllErrors}
             />
           </Route>
 
@@ -312,7 +323,8 @@ const App = () => {
             <Login
               onLogin={handleLogin}
               isLoading={isLoading}
-              requestError={requestError}
+              loginError={loginError}
+              clearErrors={clearAllErrors}
             />
           </Route>
 

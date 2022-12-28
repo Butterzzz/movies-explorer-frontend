@@ -3,7 +3,7 @@ import Form from '../Form/Form'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './Login.css'
 
-const Login = ({ onLogin, isLoading, requestError }) => {
+const Login = ({ onLogin, isLoading, loginError, clearErrors }) => {
   const { values, errors, handleChange, isValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(evt) {
@@ -23,7 +23,8 @@ const Login = ({ onLogin, isLoading, requestError }) => {
         isLogin={true}
         isValid={isValid}
         isLoading={isLoading}
-        requestError={requestError}
+        loginError={loginError}
+        clearErrors={clearErrors}
       >
         <label className="form__field" htmlFor="login-email">E-mail</label>
         <input
