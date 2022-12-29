@@ -147,6 +147,7 @@ const App = () => {
     localStorage.removeItem('movies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('searchValue');
+    localStorage.removeItem('shortMovies');
     localStorage.clear();
     setCurrentUser({});
     setApiMovies([]);
@@ -165,6 +166,7 @@ const App = () => {
   // Поиск фильмов
   function handleSearchMovie(keyword) {
     localStorage.setItem('searchValue', keyword);
+    localStorage.setItem('shortMovies', isShortMovies);
     setIsLoading(true);
     setMovies([]);
     setNotFound(false);
@@ -244,12 +246,17 @@ const App = () => {
     if (isLoggedIn) {
       const movies = localStorage.getItem('movies');
       const savedMovies = localStorage.getItem('savedMovies');
+      const shortdMovies = localStorage.getItem('shortMovies');
       if (movies) {
         setMovies(JSON.parse(movies));
       }
       if (savedMovies) {
         setSavedMovies(JSON.parse(savedMovies));
-      } else {
+      }
+      if (shortdMovies) {
+        setIsShortMovies(JSON.parse(shortdMovies));
+      }
+      else {
         MainApi.getSavedMovies()
           .then((res) => {
             setSavedMovies(res);
