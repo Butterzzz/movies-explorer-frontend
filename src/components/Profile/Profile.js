@@ -16,7 +16,7 @@ const Profile = ({ onSubmit, onSignOut, profileError }) => {
     evt.preventDefault();
 
     onSubmit(values.name, values.email);
-    resetForm();
+    resetForm({ name: currentUser.name, email: currentUser.email });
   }
 
   return (

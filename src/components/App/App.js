@@ -108,9 +108,11 @@ const App = () => {
         setProfileError('Профиль успешно обновлен');
       })
       .catch((err) => {
-        console.log(err)
+        if (err === 400) {
+          return setProfileError('Некорректное значение одного или нескольких полей');
+        }
         if (err === 409) {
-          return setProfileError('Пользователь с таким email уже существует');
+          return setProfileError(`Пользователь ${email} уже существует`);
         } else {
           return setProfileError('При обновлении профиля произошла ошибка');
         }
