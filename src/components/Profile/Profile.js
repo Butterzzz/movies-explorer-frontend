@@ -5,7 +5,7 @@ import './Profile.css'
 
 const Profile = ({ onSubmit, onSignOut, profileError }) => {
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, isValid, resetForm } = useFormWithValidation();
+  const { values, errors, handleChange, isValid, resetForm } = useFormWithValidation();
 
   // Подставляем значения в форму из контекста пользователя
   useEffect(() => {
@@ -57,9 +57,12 @@ const Profile = ({ onSubmit, onSignOut, profileError }) => {
               onChange={handleChange}
               required
             />
+
           </div>
 
           <div className="profile-form__nav">
+
+            <span className="profile-form__error">{errors.email || errors.name}</span>
             <span className="profile__error">{profileError}</span>
 
             <button
