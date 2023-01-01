@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Switch, Route, useHistory, useLocation } from 'react-router-dom'
+import { Switch, Route, useHistory, useLocation, Redirect } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import './App.css'
 // Компоненты
@@ -320,21 +320,27 @@ const App = () => {
           </ProtectedRoute>
 
           <Route path="/signup">
-            <Register
-              onRegister={handleRegister}
-              isLoading={isLoading}
-              registerError={registerError}
-              clearErrors={clearAllErrors}
-            />
+            {!isLoggedIn
+              ? <Register
+                onRegister={handleRegister}
+                isLoading={isLoading}
+                registerError={registerError}
+                clearErrors={clearAllErrors}
+              />
+              : <Redirect to="/movies" />
+            }
           </Route>
 
           <Route path="/signin">
-            <Login
-              onLogin={handleLogin}
-              isLoading={isLoading}
-              loginError={loginError}
-              clearErrors={clearAllErrors}
-            />
+            {!isLoggedIn
+              ? <Login
+                onLogin={handleLogin}
+                isLoading={isLoading}
+                loginError={loginError}
+                clearErrors={clearAllErrors}
+              />
+              : <Redirect to="/movies" />
+            }
           </Route>
 
           <Route path="*">
