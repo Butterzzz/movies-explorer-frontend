@@ -9,7 +9,7 @@ const RoundedSwitch = ({ handleShortMovies, isShortMovies }) => {
           className="rounded-switch__input"
           type="checkbox"
           onChange={handleShortMovies}
-          checked={isShortMovies}
+          checked={isShortMovies ? true : false}
         />
         <span className="rounded-switch__slider"></span>
       </label>

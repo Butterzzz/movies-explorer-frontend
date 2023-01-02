@@ -16,8 +16,6 @@ import Footer from '../Footer/Footer'
 // API
 import * as MainApi from '../../utils/MainApi'
 import * as MoviesApi from '../../utils/MoviesApi'
-// Утилиты
-import { searchMoviesByKeyword } from '../../utils/utils'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({}); // Текущий пользователь
@@ -149,7 +147,7 @@ const App = () => {
     localStorage.removeItem('movies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('searchValue');
-    localStorage.removeItem('shortMovies');
+    localStorage.removeItem('isShortMovies');
     localStorage.clear();
     setCurrentUser({});
     setApiMovies([]);
@@ -161,14 +159,50 @@ const App = () => {
 
   // ----------------------------- MOVIES ----------------------------- //
 
+  // Поиск по запросу пользователя
+  function searchMoviesByKeyword(movies, keyword) {
+    let foundMovies = [];
+    movies.forEach((movie) => {
+      const movieRu = String(movie.nameRU).toLowerCase().trim();
+      const movieEn = String(movie.nameEN).toLowerCase().trim();
+      const userMovie = keyword.toLowerCase().trim();
+      if (movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1) {
+        if (isShortMovies) {
+          movie.duration <= 40 && foundMovies.push(movie);
+        } else {
+          foundMovies.push(movie);
+        }
+      }
+    });
+    return foundMovies;
+  }
+
   function handleShortMovies(evt) {
     setIsShortMovies(evt.target.checked);
   }
 
+  // Проверка чекбокса в localStorage
+  useEffect(() => {
+    if (location.pathname === '/movies' && localStorage.getItem('isShortMovies') === "true") {
+      setIsShortMovies(true);
+    } else {
+      setIsShortMovies(false);
+    }
+  }, [location]);
+
+  // Проверка длины массива (для сохранения статуса ошибки, если поиск не дал результатов)
+  useEffect(() => {
+    if (location.pathname === '/movies' && (apiMovies.length || movies.length === 0)) {
+      setNotFound(true);
+    } else {
+      setNotFound(false);
+    }
+  }, [location]);
+
   // Поиск фильмов
   function handleSearchMovie(keyword) {
     localStorage.setItem('searchValue', keyword);
-    localStorage.setItem('shortMovies', isShortMovies);
+    localStorage.setItem('isShortMovies', isShortMovies);
     setIsLoading(true);
     setMovies([]);
     setNotFound(false);
@@ -178,11 +212,13 @@ const App = () => {
       MoviesApi.getAllMovies()
         .then(resMovies => {
           setApiMovies(resMovies);
-          const searchResult = searchMoviesByKeyword(resMovies, keyword, isShortMovies);
+          const searchResult = searchMoviesByKeyword(resMovies, keyword);
 
           if (searchResult.length === 0) {
             setNotFound(true);
             setMovies([]);
+            localStorage.setItem('movies', JSON.stringify(searchResult));
+            setMovies(JSON.parse(localStorage.getItem('movies')));
           } else {
             localStorage.setItem('movies', JSON.stringify(searchResult));
             setMovies(JSON.parse(localStorage.getItem('movies')));
@@ -196,12 +232,14 @@ const App = () => {
           setIsLoading(false);
         })
     } else {
-      const searchResult = searchMoviesByKeyword(apiMovies, keyword, isShortMovies);
+      const searchResult = searchMoviesByKeyword(apiMovies, keyword);
 
       if (searchResult.length === 0) {
         setMovies([]);
         setIsLoading(false);
         setNotFound(true);
+        localStorage.setItem('movies', JSON.stringify(searchResult));
+        setMovies(JSON.parse(localStorage.getItem('movies')));
       } else if (searchResult.length !== 0) {
         localStorage.setItem('movies', JSON.stringify(searchResult));
         setMovies(JSON.parse(localStorage.getItem('movies')));
@@ -215,7 +253,7 @@ const App = () => {
 
   function searchSavedMovies(keyword) {
     const movies = JSON.parse(localStorage.getItem('savedMovies'));
-    const searchResult = searchMoviesByKeyword(movies, keyword, isShortMovies);
+    const searchResult = searchMoviesByKeyword(movies, keyword);
     setSavedMovies(searchResult);
   }
 
@@ -248,15 +286,11 @@ const App = () => {
     if (isLoggedIn) {
       const movies = localStorage.getItem('movies');
       const savedMovies = localStorage.getItem('savedMovies');
-      const shortdMovies = localStorage.getItem('shortMovies');
       if (movies) {
         setMovies(JSON.parse(movies));
       }
       if (savedMovies) {
         setSavedMovies(JSON.parse(savedMovies));
-      }
-      if (shortdMovies) {
-        setIsShortMovies(JSON.parse(shortdMovies));
       }
       else {
         MainApi.getSavedMovies()
