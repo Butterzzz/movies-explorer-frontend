@@ -2,50 +2,64 @@ import React, { useState, useEffect } from 'react'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 import './MoviesCardList.css'
-import { NOT_FOUND_ERR_TEXT, REQUEST_ERR_TEXT } from '../../utils/constants'
+// Константы
+import {
+  NOT_FOUND_ERR_TEXT,
+  NOT_FOUND_SAVED_ERR_TEXT,
+  REQUEST_ERR_TEXT,
+  SCREEN_SIZE_S,
+  SCREEN_SIZE_M ,
+  SCREEN_SIZE_L,
+  INITIAL_MOVIES_S,
+  INITIAL_MOVIES_M,
+  INITIAL_MOVIES_L,
+  LOAD_MORE_S_M,
+  LOAD_MORE_L,
+  LOAD_MORE_XL
+} from '../../utils/constants'
 
 const MoviesCardList = ({ isLoading, ...props }) => {
 
   const [initialCardsAmount, setInitialCardsAmount] = useState(() => {
     const size = window.innerWidth;
-    if (size < 720) {
-      return 5;
-    } else if (size < 920) {
-      return 8;
-    } else if (size < 1279) {
-      return 12;
-    } else if (size > 1279) {
-      return 12;
+    if (size < SCREEN_SIZE_S) {
+      return INITIAL_MOVIES_S;
+    } else if (size < SCREEN_SIZE_M) {
+      return INITIAL_MOVIES_M;
+    } else if (size < SCREEN_SIZE_L) {
+      return INITIAL_MOVIES_L;
+    } else if (size > SCREEN_SIZE_L) {
+      return INITIAL_MOVIES_L;
     }
   })
 
   const [addCardsAmount, setAddMoreCardsAmount] = useState(() => {
     const size = window.innerWidth;
-    if (size < 720) {
-      return 2;
-    } else if (size < 920) {
-      return 2;
-    } else if (size < 1279) {
-      return 3;
-    } else if (size > 1279) {
-      return 4;
+    if (size < SCREEN_SIZE_S) {
+      return LOAD_MORE_S_M;
+    } else if (size < SCREEN_SIZE_M) {
+      return LOAD_MORE_S_M;
+    } else if (size < SCREEN_SIZE_L) {
+      return LOAD_MORE_L;
+    } else if (size > SCREEN_SIZE_L) {
+      return LOAD_MORE_XL;
     }
   })
 
   function handleResize() {
     const size = window.innerWidth;
-    if (size < 720) {
-      setInitialCardsAmount(5);
-      setAddMoreCardsAmount(2);
-    } else if (size < 920) {
-      setInitialCardsAmount(8);
-      setAddMoreCardsAmount(2);
-    } else if (size < 1279) {
-      setInitialCardsAmount(12);
-      setAddMoreCardsAmount(3);
-    } else if (size > 1279) {
-      setInitialCardsAmount(12);
-      setAddMoreCardsAmount(4);
+    if (size < SCREEN_SIZE_S) {
+      setInitialCardsAmount(INITIAL_MOVIES_S);
+      setAddMoreCardsAmount(LOAD_MORE_S_M);
+    } else if (size < SCREEN_SIZE_M) {
+      setInitialCardsAmount(INITIAL_MOVIES_M);
+      setAddMoreCardsAmount(LOAD_MORE_S_M);
+    } else if (size < SCREEN_SIZE_L) {
+      setInitialCardsAmount(INITIAL_MOVIES_L);
+      setAddMoreCardsAmount(LOAD_MORE_L);
+    } else if (size > SCREEN_SIZE_L) {
+      setInitialCardsAmount(INITIAL_MOVIES_L);
+      setAddMoreCardsAmount(LOAD_MORE_XL);
     }
   }
 
@@ -71,7 +85,7 @@ const MoviesCardList = ({ isLoading, ...props }) => {
       </p>
 
       <p className={`movies__errors ${(props.isSavedMovies && props.movies.length === 0) ? '' : 'movies__errors_type_hidden'}`}>
-        {NOT_FOUND_ERR_TEXT}
+        {NOT_FOUND_SAVED_ERR_TEXT}
       </p>
 
       <ul className="movies__list">

@@ -16,6 +16,8 @@ import Footer from '../Footer/Footer'
 // API
 import * as MainApi from '../../utils/MainApi'
 import * as MoviesApi from '../../utils/MoviesApi'
+// Константы
+import { SHORT_MOVIE } from '../../utils/constants'
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({}); // Текущий пользователь
@@ -168,7 +170,7 @@ const App = () => {
       const userMovie = keyword.toLowerCase().trim();
       if (movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1) {
         if (isShortMovies) {
-          movie.duration <= 40 && foundMovies.push(movie);
+          movie.duration <= SHORT_MOVIE && foundMovies.push(movie);
         } else {
           foundMovies.push(movie);
         }
