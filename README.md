@@ -49,11 +49,11 @@ Movies Explorer - фронтенд дипломного проекта в Янд
 - `git clone https://github.com/Butterzzz/movies-explorer-frontend` - cклонировать проект на компьютер;
 - `npm install` - установить npm зависимости;
 - `npm start` - запустить проект в режиме разработки на localhost:3000;
-- `npm run build` -  запускает сборку проекта;
+- `npm run build` -  запускает сборку проекта.
 
 ## Ссылки
 
-[Публичный адрес приложения](https://movies-explorer.gss.nomoredomains.club)
-[Публичный адрес сервера приложения](https://api.movies-explorer.gss.nomoredomains.club)
-[Репозиторий бэкенд части](https://github.com/Butterzzz/movies-explorer-api)
-[Макет в Фигме](https://www.figma.com/file/yixKRuNhCHnl3NDkjDnznZ/myDiploma?node-id=891%3A3857&t=zwUKJWAKC1V7OSi1-0)
+- [Публичный адрес приложения](https://movies-explorer.gss.nomoredomains.club)
+- [Публичный адрес сервера приложения](https://api.movies-explorer.gss.nomoredomains.club)
+- [Репозиторий бэкенд части](https://github.com/Butterzzz/movies-explorer-api)
+- [Макет в Фигме](https://www.figma.com/file/yixKRuNhCHnl3NDkjDnznZ/myDiploma?node-id=891%3A3857&t=zwUKJWAKC1V7OSi1-0)
