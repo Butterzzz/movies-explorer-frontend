@@ -1,15 +1,30 @@
 import React from 'react'
 import Form from '../Form/Form'
+import { useFormWithValidation } from '../../hooks/useFormWithValidation'
 import './Login.css'
 
-const Login = () => {
+const Login = ({ onLogin, isLoading, loginError, clearErrors }) => {
+  const { values, errors, handleChange, isValid, resetForm } = useFormWithValidation();
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    onLogin(values.email, values.password);
+    resetForm();
+  }
+
   return (
     <section className="login">
       <Form
         title="Рады видеть!"
         name="login-form"
-        submitText="Войти"
+        onSubmit={handleSubmit}
+        submitText={isLoading ? 'Вход...' : 'Войти'}
         isLogin={true}
+        isValid={isValid}
+        isLoading={isLoading}
+        loginError={loginError}
+        clearErrors={clearErrors}
       >
         <label className="form__field" htmlFor="login-email">E-mail</label>
         <input
@@ -18,10 +33,12 @@ const Login = () => {
           type="email"
           name="email"
           placeholder="E-mail"
+          value={values.email || ""}
+          onChange={handleChange}
           required
         />
 
-        <span className="form__error">Ошибка</span>
+        <span className="form__error">{errors.email}</span>
 
         <label className="form__field" htmlFor="login-password">Пароль</label>
         <input
@@ -30,10 +47,13 @@ const Login = () => {
           type="password"
           name="password"
           placeholder="Пароль"
+          value={values.password || ""}
+          onChange={handleChange}
+          minLength="8"
           required
         />
 
-        <span className="form__error">Ошибка</span>
+        <span className="form__error">{errors.password}</span>
       </Form>
     </section>
   )
