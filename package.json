@@ -17,7 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "scp -r ./build/* butters-cloud@158.160.33.154:/home/butters-cloud/movies-explorer-api-full/frontend"
+    "deploy": "scp -r ./build/* root@45.9.73.240:/var/www/movies/html"
   },
   "eslintConfig": {
     "extends": [
