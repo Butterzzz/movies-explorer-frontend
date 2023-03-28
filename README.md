@@ -57,3 +57,8 @@ Movies Explorer - фронтенд дипломного проекта в Янд
 - [Публичный адрес сервера приложения](https://api.movies-explorer.gss.nomoredomains.club)
 - [Репозиторий бэкенд части](https://github.com/Butterzzz/movies-explorer-api)
 - [Макет в Фигме](https://www.figma.com/file/yixKRuNhCHnl3NDkjDnznZ/myDiploma?node-id=891%3A3857&t=zwUKJWAKC1V7OSi1-0)
+
+Вы можете зарегистрировать нового пользователя или воспользоваться тестовыми данными:
+
+- логин: test@test.ru
+- пароль: test_password
